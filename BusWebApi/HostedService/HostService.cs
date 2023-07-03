@@ -35,7 +35,7 @@ namespace BusWebApi.HostedService
         /// <returns><see cref="Task"/></returns>
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            this._changeHandler.StartTrackingChanges();
+            this._changeHandler.StartTrackingChangesAsync();
 
             return Task.CompletedTask;
         }
@@ -47,7 +47,7 @@ namespace BusWebApi.HostedService
         /// <returns><see cref="Task"/></returns>
         public Task StopAsync(CancellationToken cancellationToken)
         {
-            this._changeHandler.StopTrackingChanges();
+            this._changeHandler.StopTrackingChangesAsync();
 
             return Task.CompletedTask;
         }

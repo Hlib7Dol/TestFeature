@@ -11,12 +11,12 @@ namespace BusWebApi.Managers
         /// Gets collection of active <see cref="Offer"/>s
         /// </summary>
         /// <returns><see cref="IEnumerable{T}"/> of <see cref="Offer"/>s</returns>
-        IEnumerable<Offer> GetActiveOffers();
+        Task<IEnumerable<Offer>> GetActiveOffers();
 
         /// <summary>
         /// Adds new record
         /// </summary>
         /// <param name="record">New <see cref="Offer"/> record object</param>
-        void AddRecord(Offer record);
+        Task AddRecord(Offer record);
     }
 }

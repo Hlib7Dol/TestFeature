@@ -59,9 +59,9 @@ namespace Shared.Controllers
         /// <returns>Collections of <see cref="OfferDto"/>s</returns>
         [HttpGet]
         [Route("GetActiveOffers")]
-        public IEnumerable<OfferDto> GetActiveOffers(CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<OfferDto>> GetActiveOffers(CancellationToken cancellationToken = default)
         {
-            var activeEvents = this._offerManager.GetActiveOffers();
+            var activeEvents = await this._offerManager.GetActiveOffers();
 
             return activeEvents.Select(x => x.ToOfferDto());
         }

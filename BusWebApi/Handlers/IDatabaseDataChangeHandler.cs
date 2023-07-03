@@ -8,11 +8,11 @@
         /// <summary>
         /// Starts tracking changes of the storage
         /// </summary>
-        void StartTrackingChanges();
+        Task StartTrackingChangesAsync();
 
         /// <summary>
         /// Stops tracking changes of the storage
         /// </summary>
-        void StopTrackingChanges();
+        Task StopTrackingChangesAsync();
     }
 }

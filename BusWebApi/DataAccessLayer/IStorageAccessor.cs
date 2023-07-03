@@ -12,13 +12,27 @@ namespace BusWebApi.DataAccessLayer
         /// </summary>
         /// <typeparam name="T">Parameter of type <see cref="DbModel"/></typeparam>
         /// <param name="value">Object that will be added to the database</param>
-        void AddRecord<T>(T value) where T : DbModel;
+        Task AddRecordAsync<T>(T value) where T : DbModel;
+
+        /// <summary>
+        /// Gets collection of unsent items
+        /// </summary>
+        /// <typeparam name="T">Parameter of type <see cref="DbModel"/></typeparam>
+        /// <returns>Collection of section items</returns>
+        Task<IEnumerable<T>> GetUnsentItemsAsync<T>() where T : DbModel;
+
+        /// <summary>
+        /// Updates records in the storage
+        /// </summary>
+        /// <typeparam name="T">Parameter of type <see cref="DbModel"/></typeparam>
+        /// <param name="values">Collection of <see cref="DbModel"/>s</param>
+        Task UpdateRecordsAsync<T>(IEnumerable<T> values) where T : DbModel;
 
         /// <summary>
         /// Gets values from storage section
         /// </summary>
         /// <typeparam name="T">Parameter of type <see cref="DbModel"/></typeparam>
         /// <returns>Collection of section items</returns>
-        IEnumerable<T> GetValuesFromSection<T>() where T : DbModel;
+        Task<IEnumerable<T>> GetValuesFromSectionAsync<T>() where T : DbModel;
     }
 }

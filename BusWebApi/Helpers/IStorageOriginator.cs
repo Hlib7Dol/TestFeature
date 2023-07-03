@@ -20,7 +20,7 @@ namespace BusWebApi.Helpers
         /// <summary>
         /// Updates originator values from storage
         /// </summary>
-        void UpdateOriginatorValues();
+        Task UpdateOriginatorValuesAsync();
 
         /// <summary>
         /// Returns <see cref="IStorageMemento"/> object

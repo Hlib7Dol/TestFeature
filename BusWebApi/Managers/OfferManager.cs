@@ -33,18 +33,18 @@ namespace BusWebApi.Managers
         /// Adds new record
         /// </summary>
         /// <param name="record">New <see cref="Offer"/> record object</param>
-        public void AddRecord(Offer record)
+        public async Task AddRecord(Offer record)
         {
-            this._storageAccessor.AddRecord(record);
+            await this._storageAccessor.AddRecordAsync(record);
         }
 
         /// <summary>
         /// Gets collection of active <see cref="Offer"/>s
         /// </summary>
         /// <returns><see cref="IEnumerable{T}"/> of <see cref="Offer"/>s</returns>
-        public IEnumerable<Offer> GetActiveOffers()
+        public async Task<IEnumerable<Offer>> GetActiveOffers()
         {
-            var offers = this._storageAccessor.GetValuesFromSection<Offer>();
+            var offers = await this._storageAccessor.GetValuesFromSectionAsync<Offer>();
 
             if (offers == null)
             {

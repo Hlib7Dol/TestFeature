@@ -11,12 +11,12 @@ namespace BusWebApi.Managers
         /// Gets collection of active <see cref="Event"/>s
         /// </summary>
         /// <returns><see cref="IEnumerable{T}"/> of <see cref="Event"/>s</returns>
-        IEnumerable<Event> GetActiveEvents();
+        Task<IEnumerable<Event>> GetActiveEvents();
 
         /// <summary>
         /// Adds new record
         /// </summary>
         /// <param name="record">New <see cref="Event"/> record object</param>
-        void AddRecord(Event record);
+        Task AddRecord(Event record);
     }
 }

@@ -38,14 +38,14 @@ namespace BusWebApi.DataAccessLayer
         /// <typeparam name="T">Parameter of type <see cref="DbModel"/></typeparam>
         /// <returns>Collection of section values</returns>
         /// <exception cref="ArgumentNullException">Thrown if section is not present</exception>
-        public IEnumerable<T> GetValuesFromSection<T>() where T : DbModel
+        public Task<IEnumerable<T>> GetValuesFromSectionAsync<T>() where T : DbModel
         {
             lock (_lockObject)
             {
                 using var streamReader = new StreamReader(_storagePath);
                 var json = streamReader.ReadToEnd();
 
-                JObject jsonObject = null;
+                JObject jsonObject;
                 try
                 {
                     jsonObject = JObject.Parse(json);
@@ -60,7 +60,7 @@ namespace BusWebApi.DataAccessLayer
                 var sectionName = typeof(T).Name.ToLower();
                 var section = jsonObject[sectionName]?.ToString() ?? throw new ArgumentNullException($"No such section {sectionName}");
 
-                IEnumerable<T> result = null;
+                IEnumerable<T> result;
                 try
                 {
                     result = System.Text.Json.JsonSerializer.Deserialize<List<T>>(section);
@@ -72,7 +72,7 @@ namespace BusWebApi.DataAccessLayer
                     throw ex;
                 }
 
-                return result;
+                return Task.FromResult(result);
             }
         }
 
@@ -82,7 +82,7 @@ namespace BusWebApi.DataAccessLayer
         /// <typeparam name="T">Parameter of type <see cref="DbModel"/></typeparam>
         /// <param name="value">Object that will be added to the database</param>
         /// <exception cref="ArgumentNullException">Thrown if section is not present</exception>
-        public void AddRecord<T>(T value) where T : DbModel
+        public Task AddRecordAsync<T>(T value) where T : DbModel
         {
             lock (_lockObject)
             {
@@ -129,6 +129,18 @@ namespace BusWebApi.DataAccessLayer
 
                 streamWriter.Write(jsonObject);
             }
+
+            return Task.CompletedTask;
+        }
+
+        public Task<IEnumerable<T>> GetUnsentItemsAsync<T>() where T : DbModel
+        {
+            return Task.FromResult<IEnumerable<T>>(null);
+        }
+
+        public Task UpdateRecordsAsync<T>(IEnumerable<T> values) where T : DbModel
+        {
+            return Task.CompletedTask;
         }
 
         #endregion

@@ -20,8 +20,8 @@ builder.Services.AddHostedService<HostService>();
 
 // Dependencies
 builder.Services.AddTransient<ISignalRMessageSenderService, SignalRMessageSenderService>();
-builder.Services.AddTransient<IStorageAccessor, StorageAccessor>();
-builder.Services.AddTransient<IDatabaseDataChangeHandler, DatabaseDataChangeHandler>();
+builder.Services.AddTransient<IStorageAccessor, RedisStorageAccessor>();
+builder.Services.AddTransient<IDatabaseDataChangeHandler, RedisDataChangeHandler>();
 builder.Services.AddTransient<IDifferenceTrackerService, DifferenceTrackerService>();
 builder.Services.AddTransient<IEventManager, EventManager>();
 builder.Services.AddTransient<IOfferManager, OfferManager>();

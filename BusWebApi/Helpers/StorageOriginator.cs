@@ -49,10 +49,10 @@ namespace BusWebApi.Helpers
         /// <summary>
         /// Updates originator values from storage
         /// </summary>
-        public void UpdateOriginatorValues()
+        public async Task UpdateOriginatorValuesAsync()
         {
-            Events = _storageAccessor.GetValuesFromSection<Event>();
-            Offers = _storageAccessor.GetValuesFromSection<Offer>();
+            Events = await _storageAccessor.GetValuesFromSectionAsync<Event>();
+            Offers = await _storageAccessor.GetValuesFromSectionAsync<Offer>();
         }
 
         /// <summary>

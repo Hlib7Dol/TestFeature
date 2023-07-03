@@ -59,9 +59,9 @@ namespace BusWebApi.Controllers
         /// <returns>Collection of <see cref="EventDto"/>s</returns>
         [HttpGet]
         [Route("GetActiveEvents")]
-        public IEnumerable<EventDto> GetActiveEvents(CancellationToken cancellationToken = default) 
+        public async Task<IEnumerable<EventDto>> GetActiveEvents(CancellationToken cancellationToken = default) 
         {
-            var activeEvents = this._eventManager.GetActiveEvents();
+            var activeEvents = await this._eventManager.GetActiveEvents();
 
             return activeEvents.Select(x => x.ToEventDto());
         }

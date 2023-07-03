@@ -61,24 +61,28 @@ namespace BusWebApi.Handlers
         /// <summary>
         /// Starts tracking database changes
         /// </summary>
-        public void StartTrackingChanges()
+        public Task StartTrackingChangesAsync()
         {
             _fileSystemWatcher.Path = this._storageFolderPath;
             _fileSystemWatcher.Changed += TrackChangesAsync;
             _fileSystemWatcher.EnableRaisingEvents = true;
 
-            this._storageOriginator.UpdateOriginatorValues();
+            this._storageOriginator.UpdateOriginatorValuesAsync();
             this._storageCaretaker.Memento = this._storageOriginator.GetMemento();
+
+            return Task.CompletedTask;
         }
 
         /// <summary>
         /// Stops tracking database changes
         /// </summary>
-        public void StopTrackingChanges()
+        public Task StopTrackingChangesAsync()
         {
             _fileSystemWatcher.EnableRaisingEvents = false;
             _fileSystemWatcher.Changed -= TrackChangesAsync;
             _fileSystemWatcher.Dispose();
+
+            return Task.CompletedTask;
         }
 
         #endregion
@@ -98,7 +102,7 @@ namespace BusWebApi.Handlers
                 return;
             }
 
-            this._storageOriginator.UpdateOriginatorValues();
+            this._storageOriginator.UpdateOriginatorValuesAsync();
 
             HashSet<IAvailabilityModel> models = new();
 
